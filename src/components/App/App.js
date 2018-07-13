@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, NavItem, PageHeader } from 'emerald-ui';
 
+import CourseHistory from '../CourseHistory';
 import cebLogo from './ce-broker-logo.svg';
 
 class App extends Component {
@@ -20,7 +21,9 @@ class App extends Component {
             <NavItem eventKey={1}>COURSE HISTORY</NavItem>
           </PageHeader.Nav>
         </PageHeader>
-        <div className="container" />
+        <div className="container content">
+          <CourseHistory />
+        </div>
       </div>
     );
   }
