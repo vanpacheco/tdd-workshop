@@ -20,7 +20,7 @@ class App extends Component {
             <NavItem eventKey={1}>COURSE HISTORY</NavItem>
           </PageHeader.Nav>
         </PageHeader>
-        <div className="container" />
+        <div className="container content" />
       </div>
     );
   }
