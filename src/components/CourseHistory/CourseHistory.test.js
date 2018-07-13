@@ -4,19 +4,24 @@ import { assert, stub } from 'sinon';
 
 import CourseHistory from './CourseHistory';
 import * as api from '../../api';
+import * as utils from '../../utils';
 import { Table } from 'emerald-ui';
 
 describe('CourseHistory', () => {
-  let wrapper, fetchCoursesStub;
+  let fetchCoursesStub, startCaseStub, wrapper;
 
   beforeEach(() => {
     fetchCoursesStub = stub(api.courses, 'fetchCourses');
     fetchCoursesStub.resolves({ data: { items: fakeState.courses } });
+
+    startCaseStub = stub(utils, 'startCase');
+
     wrapper = shallow(<CourseHistory />);
   });
 
   afterEach(() => {
     fetchCoursesStub.restore();
+    startCaseStub.restore();
   });
 
   it('renders without crashing', () => {
@@ -46,6 +51,7 @@ describe('CourseHistory', () => {
   });
 
   it('renders each course‘s data', () => {
+    startCaseStub.returns('Capitalized Name');
     wrapper.setState({ courses: fakeState.courses });
     wrapper.state('courses').map((course, index) => {
       const tr = wrapper
@@ -54,7 +60,7 @@ describe('CourseHistory', () => {
         .at(index);
 
       expect(tr).to.be.present();
-      expect(tr.find('td').at(0)).to.have.text(course.name);
+      expect(tr.find('td').at(0)).to.have.text(startCaseStub(course.name));
       expect(tr.find('td').at(1)).to.have.text(course.licenseNumber);
     });
   });

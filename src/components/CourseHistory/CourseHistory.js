@@ -2,6 +2,7 @@ import React from 'react';
 import { Table } from 'emerald-ui';
 
 import * as api from '../../api';
+import * as utils from '../../utils';
 
 class CourseHistory extends React.Component {
   state = {
@@ -28,7 +29,7 @@ class CourseHistory extends React.Component {
         <tbody>
           {courses.map(c => (
             <tr key={c.id}>
-              <td>{c.name}</td>
+              <td>{utils.startCase(c.name)}</td>
               <td>{c.licenseNumber}</td>
             </tr>
           ))}
