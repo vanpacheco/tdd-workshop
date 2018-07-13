@@ -3,4 +3,5 @@
 Requirement:
 
 - List in an emerald-ui Table a licensee's course history
-- Display course name in camelCase
+- Table should have two columns: one for course name and another one for license number
+- Display course name in StartCase

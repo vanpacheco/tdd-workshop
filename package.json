@@ -15,6 +15,16 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js}",
+      "!src/(index|registerServiceWorker|setupTests).js",
+      "!src/api/*",
+      "!src/components/index.js",
+      "!src/components/*/index.js",
+      "!src/utils/fakeState/*"
+    ]
+  },
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-enzyme": "^1.0.0-beta.1",

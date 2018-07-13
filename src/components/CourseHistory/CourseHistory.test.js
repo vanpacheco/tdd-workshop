@@ -13,11 +13,11 @@ describe('CourseHistory', () => {
     fetchCoursesStub = stub(api.courses, 'fetchCourses');
     fetchCoursesStub.resolves({ data: { items: fakeState.courses } });
     wrapper = shallow(<CourseHistory />);
-  })
+  });
 
   afterEach(() => {
     fetchCoursesStub.restore();
-  })
+  });
 
   it('renders without crashing', () => {
     // 1. Renderizar el componente
@@ -45,8 +45,18 @@ describe('CourseHistory', () => {
     expect(wrapper.find('tbody')).to.be.present();
   });
 
-  it('renders a tr element inside a tbody element', () => {
-    expect(wrapper.find('tbody').find('tr')).to.be.present();
+  it('renders each course‘s data', () => {
+    wrapper.setState({ courses: fakeState.courses });
+    wrapper.state('courses').map((course, index) => {
+      const tr = wrapper
+        .find('tbody')
+        .find('tr')
+        .at(index);
+
+      expect(tr).to.be.present();
+      expect(tr.find('td').at(0)).to.have.text(course.name);
+      expect(tr.find('td').at(1)).to.have.text(course.licenseNumber);
+    });
   });
 
   describe('componentDidMount', () => {
@@ -56,9 +66,8 @@ describe('CourseHistory', () => {
       assert.calledOnce(fetchCoursesStub);
     });
 
-    it('saves courses in component state', () => {
-      // expect(fetchCoursesStub.calledOnce).to.eql(true);
-      console.log(wrapper.state())
+    it('saves courses in component‘s state', () => {
+      expect(wrapper.state('courses')).to.eql(fakeState.courses);
     });
   });
 });
